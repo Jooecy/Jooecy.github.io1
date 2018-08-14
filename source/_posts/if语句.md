@@ -1,10 +1,11 @@
 title: if语句
+date: 2018/1/4
 categories:
 - Python笔记
 tags:
 - if语句
 ---
-`if`语句可以检查程序的当前状态，本据此采取相应的措施。
+`if`语句可以检查程序的当前状态，本据此采取相应的措施。<!-- more -->
 ## if语句的简单示例
 {% codeblock lang:python %}
 a = ['joecy','wang']
@@ -28,7 +29,7 @@ wang
 
 #检查是否相等
 
->>> car == 'bwm'  
+>>> car == 'bwm' 
 True
 >>> car == 'Bwm'
 False
@@ -36,14 +37,14 @@ False
 
 #检查是否不相等
 
->>> car != 'audi'  
+>>> car != 'audi' 
 True
 
 
 #比较数字
 
 >>> a = 18
->>> a == 18        
+>>> a == 18
 True
 >>> a > 10
 True

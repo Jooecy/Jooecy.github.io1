@@ -1,12 +1,13 @@
 title: while循环
+date: 2018/1/7
 categories:
 - Python笔记
 tags:
 - while
 - 循环
 ---
-## while循环简介
-Python的循环有两种，一种是`for...in`循环，依次把`list`或`tuple`中的每个元素迭代出来，第二种循环是`while`循环，只要条件满足，就不断循环，条件不满足时退出循环。
+
+Python的循环有两种，一种是`for...in`循环，依次把`list`或`tuple`中的每个元素迭代出来，第二种循环是`while`循环，只要条件满足，就不断循环，条件不满足时退出循环。<!-- more -->
 ### 使用while循环
 下面的例子是使用`while`循环计算100以内奇数和：
 {% codeblock lang:python %}
@@ -65,7 +66,7 @@ while a < 10:
 
 要特别注意，不要滥用`break`和`continue`语句。`break`和`continue`会造成代码执行逻辑分叉过多，容易出错。大多数循环并不需要用到`break`和`continue`语句，上面的两个例子，都可以通过改写循环条件或者修改循环逻辑，去掉`break`和`continue`语句。
 
-## while循环处理列表和字典
+### while循环处理列表和字典
 `for`循环是遍历列表的有效方式，但不该在`for`循环中修改列表，例如移动元素的操作，因为这会导致Python无法跟踪其中的元素。然而使用`while`循环就可以在遍历时对列表进行修改。
 ### 在列表间移动元素
 {% codeblock lang:python %}
