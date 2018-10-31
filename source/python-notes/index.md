@@ -4,11 +4,11 @@ date: 2018/1/1
 ---
 
 # 简介
-笔记内容来源于备受好评的《Python编程 从入门到实践》及网络。包括[廖雪峰博客](https://www.liaoxuefeng.com/)，[CSDN](https://www.csdn.net/)，[知乎](https://www.zhihu.com/)等...
+笔记内容来源于备受好评的《Python编程 从入门到实践》及网络。包括[廖雪峰博客](https://www.liaoxuefeng.com/)，[CSDN](https://www.csdn.net/)，[知乎](https://www.zhihu.com/)等......
 
 本笔记学习过程中使用Python3版本，代码在Python3.5环境下测试执行。
 
-# 目录
+## 目录
 
 - ### 基础知识
 	- [变量与数据类型](/post/%E5%8F%98%E9%87%8F%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/)

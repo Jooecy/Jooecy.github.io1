@@ -3,10 +3,10 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Joecy.Wang
-subtitle:
-description:
-keywords:
+title: 小溪博客
+subtitle: 如潺潺流水，持之以恒
+description: 阅读，写作，学习
+keywords: 小溪博客,小溪python
 author: Joecy Wang
 language: zh-Hans
 timezone:
@@ -19,7 +19,7 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://joecy.wang
+url: http://xiao-xi.wang
 root: /
 permalink: post/:title/index.html
 permalink_defaults:
