@@ -1,9 +1,8 @@
 ---
 title: About
-date:
-layout: about
+date: 2018/1/1
 ---
-![image](http://wx1.sinaimg.cn/mw690/0060lm7Tly1ftwz1ki04nj30sg0evn0c.jpg)
+![image](https://www.baidu.com/img/baidu_jgylogo3.gif)
 🙉 hear no evil
 🙊 speak no evil
 🙈 see no evil

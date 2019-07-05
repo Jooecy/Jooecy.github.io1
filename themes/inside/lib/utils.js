@@ -152,7 +152,7 @@ exports.Pagination = class {
     const extend = meta.extend || {};
     const id = typeof meta.id === 'function' ?
       meta.id :
-      (index => index === 1 ? meta.id : `${meta.id}/${index}`);
+      (index => (meta.id || '') + (index === 1 ? '' : `/${index}`));
 
     return base.generateFn({
       path: pathFn(id(index)),
@@ -171,14 +171,17 @@ exports.Pagination = class {
  */
 exports.parseToc = function (content, depth) {
   if (!content || !depth) return [];
+  if (depth > 4) depth = 4;
+  if (depth < 1) depth = 3;
 
   const reg = [
-    /^<h1.*id="([^"]*)".*><\/a>(.*)<\/h1>$/,
-    /^<h2.*id="([^"]*)".*><\/a>(.*)<\/h2>$/,
-    /^<h3.*id="([^"]*)".*><\/a>(.*)<\/h3>$/,
-    /^<h4.*id="([^"]*)".*><\/a>(.*)<\/h4>$/,
+    /^<h1.*id="([^"]*)"[^>]*>(.*)<a /,
+    /^<h2.*id="([^"]*)"[^>]*>(.*)<a /,
+    /^<h3.*id="([^"]*)"[^>]*>(.*)<a /,
+    /^<h4.*id="([^"]*)"[^>]*>(.*)<a /,
+    /^<h5.*id="([^"]*)"[^>]*>(.*)<a /,
   ].slice(0, depth + 1),
-    headings = content.match(/<(h[1234]).*>[^<]*<\/\1>/g);
+    headings = content.match(/<(h[12345]).*id="([^"]*)".*>(.*)<a.*<\/\1>/g);
 
   if (!headings) return [];
 
@@ -201,7 +204,7 @@ exports.parseToc = function (content, depth) {
         children = test(b.slice(1), pointer + 1, index);
 
       // strip anchor href
-      out.title = out.title.replace(/ href=['"]['"^>]/g, '')
+      out.title = out.title.replace(/ href=(['"])[^\1]*\1/g, '')
 
       if (children.length)
         out.children = children;
@@ -276,13 +279,15 @@ exports.validateSchema = function (schema, config = {}, defaults = {}) {
 
       else if (left.oneOf) {
         // Matches primitive value first
-        if (rightType !== 'object') {
+        if (rightType !== 'object' && rightType !== 'array') {
           if (matchPrimitive(right, left.oneOf)) ret[key] = right;
         }
         // `right` is an object or invalid primitive value
         else {
-          const objectPattern = left.oneOf.find(t => t.type === 'object');
-          if (objectPattern) ret[key] = validateObject(objectPattern.properties, right, objectPattern.ordered);
+          // Does not support two same type
+          // eg, oneOf: [ {type:string}, {type:string} ] will only check the first
+          const objectPattern = left.oneOf.find(t => t.type === 'object' || t.type === 'array');
+          if (objectPattern) ret[key] = validateObject({ item: objectPattern }, { item: right }, objectPattern.ordered).item;
         }
       }
 
@@ -374,11 +379,11 @@ function jsParser() {
     require('babel-preset-env');
   } catch (e) { return i => i || '' }
 
-  const esSafe = code => babel.transform(code, { presets: ['env'] });
+  const esSafe = code => babel.transform(code, { presets: [['env', { 'modules': false }]] });
   const minify = uglify.minify;
 
   return function (code) {
-    if (!code) return '';
+    if (!code || typeof code !== 'string') return '';
 
     code = esSafe(code);
     if (code) code = code.code;
@@ -393,27 +398,38 @@ function jsParser() {
 }
 exports.parseJs = jsParser();
 
+/**
+ * Wrap code with template
+ *
+ * Example:
+ *
+ * snippet('') => ''
+ *
+ * snippet('code')
+ *   => `<div class="is-snippet"><script>code which parsed by parseJs()</script></div>`
+ *
+ * snippet('', '<script id="mycode">code</script>')
+ *   => `<div class="is-snippet"><script id="mycode">code</script></div>`
+ *
+ * snippet('code', code => `<script id="mycode">${code}</script>`)
+ *   => `<div class="is-snippet"><script id="mycode">code which parsed by parseJs()</script></div>`
+ *
+ * @param {string} code
+ * @param {(string | ((code: string) => string))} template
+ * @returns {string}
+ */
 exports.snippet = function (code, template = code => `<script>${code}</script>`) {
   let content = '';
 
-  if (code) {
-    code = exports.parseJs(
-      `(function(){
-         'use strict';
-         ${code}
-       })();`
-    );
-  }
-
-  // Agnore code if template is string
+  // ignore code if template is string
   if (typeof template === 'string') {
     content = template;
   }
 
   // template is function which relay on code
-  else {
-    content = template(code);
+  else if (code) {
+    content = template(exports.parseJs(`(function(){${code}})();`));
   }
 
-  return `<div class="is-snippet">${content}</div>`
+  return content ? `<div class="is-snippet">${content}</div>` : '';
 }

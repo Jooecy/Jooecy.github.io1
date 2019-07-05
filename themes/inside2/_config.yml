@@ -4,9 +4,9 @@ theme:
   # cdn for theme statics
   # cdn:
   # body background
-  # background: /confectionary.png
+  background: /confectionary.png
   # sidebar background
-  # sidebar_background: /shattered-island.png
+  sidebar_background: /shattered-island.png
   # maximum width of content
   # content_width: 640
 
@@ -22,7 +22,7 @@ menu:
 profile:
   avatar: /avatar.jpg
   # Email address will be used for showing gravatar(https://en.gravatar.com) avatar if `avatar` is not specified.
-  # email: xiao-xi@live.cn
+  email: xiao-xi@live.cn
   bio: 潺潺溪水，持之以恒，终于入海
 
 # Social media
@@ -220,4 +220,3 @@ reward:
 
 # Google analytics
 # ga: UA-00000000-0
-

@@ -1,7 +1,5 @@
----
 title: 读·写
-date:
-layout: read
+date: 2018/1/1
 ---
 
 读书心得与写作。
