@@ -79,7 +79,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: inside250
+theme: inside252
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
@@ -87,4 +87,4 @@ deploy:
   type: git
   repo: 
       github: git@github.com:Jooecy/jooecy.github.io.git,master
-      coding: git@git.coding.net:joecy/blog.git,master
+      coding: git@git.dev.tencent.com:joecy/blog.git,master
